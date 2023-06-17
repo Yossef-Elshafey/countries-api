@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./Navbar";
+import FromCountries from "./component/FormCountries";
+import { useEffect, useState } from "react";
+import CountryDetails from "./component/CountryDetails";
 
 function App() {
+  const [data, setData] = useState();
+  const data_url = "https://restcountries.com/v3.1/all";
+  useEffect(() => {
+    fetch(data_url)
+      .then((response) => response.json())
+      .then((response) => setData(response));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<FromCountries data={data} />} />
+        <Route
+          path="/:countryName"
+          element={data !== undefined ? <CountryDetails data={data} /> : null}
+        />
+      </Routes>
+    </main>
   );
 }
 
