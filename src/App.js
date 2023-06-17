@@ -17,9 +17,9 @@ function App() {
     <main>
       <Navbar />
       <Routes>
-        <Route path="/" element={<FromCountries data={data} />} />
+        <Route path="/countries-api" element={<FromCountries data={data} />} />
         <Route
-          path="/:countryName"
+          path="countries-api/:countryName"
           element={data !== undefined ? <CountryDetails data={data} /> : null}
         />
       </Routes>
